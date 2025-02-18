@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, addDoc, updateDoc, doc } from "firebase/firestore"; // Add updateDoc and doc
-import { db } from "../firebase"; // Import the initialized Firestore database
+import { db, auth } from "../firebase"; // Import the initialized Firestore database
 import { FaArrowUp, FaArrowDown } from "react-icons/fa"; // Import arrow icons
+import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import { onAuthStateChanged } from "firebase/auth"; // Firebase auth state change listener
 import "./TechTorque.css"; // Import the CSS file
 
 const LockNKey = () => {
@@ -32,8 +34,28 @@ const LockNKey = () => {
   const [editMode, setEditMode] = useState(false);
   const [currentEditId, setCurrentEditId] = useState(null);
 
-  // Fetch data from Firestore
-  useEffect(() => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track if the user is logged in
+    const navigate = useNavigate(); // Navigate for redirection
+  
+    // Fetch data from Firestore
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setIsLoggedIn(true); // If the user is logged in, set the state to true
+        } else {
+          setIsLoggedIn(false); // If the user is not logged in, redirect to home page
+          navigate("/"); // Redirect to home if not logged in
+        }
+      });
+  
+      // Cleanup the subscription when the component unmounts
+      return () => unsubscribe();
+    }, [navigate]);
+  
+    // Fetch data from Firestore (if logged in)
+    useEffect(() => {
+      if (!isLoggedIn) return; // Do not fetch data if the user is not logged in
+
     const fetchData = async () => {
       try {
         // Fetch the data from Firestore

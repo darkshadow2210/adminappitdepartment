@@ -11,6 +11,7 @@ import Canvas from "./pages/Canvas";
 import RedLight from "./pages/RedLightGreenLight";
 import WhisperChallenge from "./pages/WhisperChallenge";
 import Contact from "./components/Contact";
+import Login from "./components/login"
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/red-light" element={<RedLight />} />
         <Route path="/whisper-challenge" element={<WhisperChallenge />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
