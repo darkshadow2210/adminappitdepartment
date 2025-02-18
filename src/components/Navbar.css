@@ -1,0 +1,120 @@
+/* General Navbar Styling */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border-bottom: 2px solid #555;
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar-heading h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.navbar-links {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+
+/* Navbar link styling */
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #007bff;
+  border-radius: 4px;
+  text-decoration: underline;
+  color: #fff;
+}
+
+/* Hamburger Icon */
+.hamburger-icon {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hamburger-icon .line {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+/* Open state for hamburger icon (animation) */
+.hamburger-icon .line.open:nth-child(1) {
+  transform: rotate(45deg);
+  position: relative;
+  top: 7px;
+}
+
+.hamburger-icon .line.open:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-icon .line.open:nth-child(3) {
+  transform: rotate(-45deg);
+  position: relative;
+  top: -7px;
+}
+
+/* Mobile Navbar - Hidden by default */
+.navbar-links {
+  display: flex;
+  gap: 20px;
+}
+
+/* Mobile-specific Navbar */
+@media (max-width: 768px) {
+  /* Make hamburger icon visible on mobile */
+  .hamburger-icon {
+    display: flex;
+  }
+
+  /* Navbar links hidden by default */
+  .navbar-links {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    flex-direction: column;
+    gap: 0;
+    padding: 10px 0;
+    display: none;  /* Initially hide navbar links */
+  }
+
+  /* When mobile menu is open, show the links */
+  .navbar-links.open {
+    display: flex;
+  }
+
+  .navbar-links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar-links li a {
+    padding: 12px 20px;
+    width: 100%;
+    border-bottom: 1px solid #444;
+  }
+}

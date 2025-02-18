@@ -1,0 +1,94 @@
+/* Universal Reset for Margin and Padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body Styling */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* Light background for the body */
+    color: #333; /* Text color */
+  }
+  
+  /* Main Container for Home Page */
+  .home-container {
+    text-align: center;
+    max-width: 100%;
+    padding: 50px 20px;
+  }
+  
+  /* Banner Image Styling */
+  .home-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ensures the image covers the space without distortion */
+    max-height: 500px; /* Limit the height */
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }
+  
+  /* Heading Styling */
+  .home-container h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  /* Button Container Styling */
+  .home-container .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px;
+  }
+  
+  /* Button Styling */
+  .home-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease; /* Smooth transition effect */
+  }
+  
+  .home-container button:hover {
+    background-color: #0056b3;
+    transform: translateY(-5px); /* Slight lifting effect on hover */
+  }
+  
+  .home-container button:focus {
+    outline: none; /* Removes the default focus outline */
+  }
+  
+  /* Shadow Effect for Buttons */
+  .home-container button:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Adds a soft shadow effect */
+  }
+  
+  /* Responsive Design for Mobile */
+  @media (max-width: 768px) {
+    .home-container h1 {
+      font-size: 2rem; /* Smaller text size on mobile */
+    }
+  
+    .home-container .button-container {
+      flex-direction: column; /* Stack buttons vertically on mobile */
+    }
+  
+    .home-container button {
+      width: 100%; /* Make buttons full width on mobile */
+      padding: 15px;
+    }
+  }
+  

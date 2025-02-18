@@ -1,0 +1,82 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Global font and background settings */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* Light background for the body */
+    color: #333; /* Dark text color for readability */
+  }
+  
+  /* Main Container for the Technical Page */
+  .technical-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  /* Heading Styling */
+  .technical-container h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  /* Unordered List Styling */
+  .technical-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  /* List Item Styling */
+  .technical-container ul li {
+    background-color: #007bff; /* Blue background for each item */
+    margin: 10px 0;
+    padding: 15px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+  }
+  
+  /* Link Styling */
+  .technical-container ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    font-weight: 600;
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  /* Hover Effect on List Items */
+  .technical-container ul li a:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    color: #fff;
+    text-decoration: underline; /* Underline effect on hover */
+  }
+  
+  /* Responsive Design for Mobile */
+  @media (max-width: 768px) {
+    .technical-container {
+      padding: 15px;
+    }
+  
+    .technical-container h2 {
+      font-size: 1.5rem;
+    }
+  
+    .technical-container ul li {
+      font-size: 1.1rem; /* Slightly smaller font on mobile */
+    }
+  }
+  
