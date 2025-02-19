@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, addDoc, updateDoc, doc } from "firebase/firestore"; // Add updateDoc and doc
-import { db, auth } from "../firebase"; // Import the initialized Firestore database
+import { db, auth } from "../firebase"; // Import Firestore and Firebase Auth
 import { FaArrowUp, FaArrowDown } from "react-icons/fa"; // Import arrow icons
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 import { onAuthStateChanged } from "firebase/auth"; // Firebase auth state change listener
@@ -34,43 +34,41 @@ const Whisper = () => {
   const [editMode, setEditMode] = useState(false);
   const [currentEditId, setCurrentEditId] = useState(null);
 
-  // Fetch data from Firestore
-  // Fetch data from Firestore
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track if the user is logged in
-    const navigate = useNavigate(); // Navigate for redirection
-  
-    // Fetch data from Firestore
-    useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (user) {
-          setIsLoggedIn(true); // If the user is logged in, set the state to true
-        } else {
-          setIsLoggedIn(false); // If the user is not logged in, redirect to home page
-          navigate("/"); // Redirect to home if not logged in
-        }
-      });
-  
-      // Cleanup the subscription when the component unmounts
-      return () => unsubscribe();
-    }, [navigate]);
-  
-    // Fetch data from Firestore (if logged in)
-    useEffect(() => {
-      if (!isLoggedIn) return; // Do not fetch data if the user is not logged in
-      
+  const navigate = useNavigate(); // Navigate for redirection
+
+  // Fetch data from Firestore
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLoggedIn(true); // If the user is logged in, set the state to true
+      } else {
+        setIsLoggedIn(false); // If the user is not logged in, redirect to home page
+        navigate("/"); // Redirect to home if not logged in
+      }
+    });
+
+    // Cleanup the subscription when the component unmounts
+    return () => unsubscribe();
+  }, [navigate]);
+
+  // Fetch data from Firestore (if logged in)
+  useEffect(() => {
+    if (!isLoggedIn) return; // Do not fetch data if the user is not logged in
+
     const fetchData = async () => {
       try {
         // Fetch the data from Firestore
-        const querySnapshot = await getDocs(collection(db, "Whisper"));
+        const querySnapshot = await getDocs(collection(db, "whisper"));
         const data = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-        
+
         // Set the fetched data
         setWhisperData(data);
         setLoading(false);
-  
+
         // Set the initial sorting to ascending by allocatedTime
         const sortedData = data.sort((a, b) => {
           const timeA = a.allocatedTime.split(":").map(Number);
@@ -79,18 +77,18 @@ const Whisper = () => {
           const minutesB = timeB[0] * 60 + timeB[1];
           return minutesA - minutesB; // Ascending order by default
         });
-  
+
         // Update the state with sorted data in ascending order
         setWhisperData(sortedData);
-  
+
       } catch (error) {
         console.error("Error fetching data: ", error);
         setLoading(false);
       }
     };
-  
+
     fetchData();
-  }, []); // Empty dependency array ensures this runs only once when the component mounts  
+  }, [isLoggedIn]); // Dependency on isLoggedIn, so data is fetched only when logged in
 
   // Handle form input change
   const handleInputChange = (e) => {
@@ -136,10 +134,10 @@ const Whisper = () => {
 
       try {
         if (editMode) {
-          const participantRef = doc(db, "Whisper", currentEditId);
+          const participantRef = doc(db, "whisper", currentEditId);
           await updateDoc(participantRef, formData);
         } else {
-          const collectionRef = collection(db, "Whisper");
+          const collectionRef = collection(db, "whisper");
           await addDoc(collectionRef, formData);
         }
 
@@ -158,7 +156,7 @@ const Whisper = () => {
         setShowSuccessDialog(true);
         setTimeout(() => setShowSuccessDialog(false), 3000);
 
-        const querySnapshot = await getDocs(collection(db, "Whisper"));
+        const querySnapshot = await getDocs(collection(db, "whisper"));
         const data = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -349,7 +347,7 @@ const Whisper = () => {
         </div>
       )}
 
-      {/* Board displaying Whisper Challenge participants */}
+      {/* Board displaying Red Light, Green Light participants */}
       <div className="data-board">
         <h3>Participants List</h3>
         {loading ? (

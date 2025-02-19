@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, addDoc, updateDoc, doc } from "firebase/firestore"; // Add updateDoc and doc
-import { db, auth } from "../firebase"; // Import the initialized Firestore database
+import { db, auth } from "../firebase"; // Import Firestore and Firebase Auth
 import { FaArrowUp, FaArrowDown } from "react-icons/fa"; // Import arrow icons
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 import { onAuthStateChanged } from "firebase/auth"; // Firebase auth state change listener
@@ -35,26 +35,26 @@ const LockNKey = () => {
   const [currentEditId, setCurrentEditId] = useState(null);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track if the user is logged in
-    const navigate = useNavigate(); // Navigate for redirection
-  
-    // Fetch data from Firestore
-    useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (user) {
-          setIsLoggedIn(true); // If the user is logged in, set the state to true
-        } else {
-          setIsLoggedIn(false); // If the user is not logged in, redirect to home page
-          navigate("/"); // Redirect to home if not logged in
-        }
-      });
-  
-      // Cleanup the subscription when the component unmounts
-      return () => unsubscribe();
-    }, [navigate]);
-  
-    // Fetch data from Firestore (if logged in)
-    useEffect(() => {
-      if (!isLoggedIn) return; // Do not fetch data if the user is not logged in
+  const navigate = useNavigate(); // Navigate for redirection
+
+  // Fetch data from Firestore
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLoggedIn(true); // If the user is logged in, set the state to true
+      } else {
+        setIsLoggedIn(false); // If the user is not logged in, redirect to home page
+        navigate("/"); // Redirect to home if not logged in
+      }
+    });
+
+    // Cleanup the subscription when the component unmounts
+    return () => unsubscribe();
+  }, [navigate]);
+
+  // Fetch data from Firestore (if logged in)
+  useEffect(() => {
+    if (!isLoggedIn) return; // Do not fetch data if the user is not logged in
 
     const fetchData = async () => {
       try {
@@ -64,11 +64,11 @@ const LockNKey = () => {
           id: doc.id,
           ...doc.data(),
         }));
-        
+
         // Set the fetched data
         setLockNKeyData(data);
         setLoading(false);
-  
+
         // Set the initial sorting to ascending by allocatedTime
         const sortedData = data.sort((a, b) => {
           const timeA = a.allocatedTime.split(":").map(Number);
@@ -77,18 +77,18 @@ const LockNKey = () => {
           const minutesB = timeB[0] * 60 + timeB[1];
           return minutesA - minutesB; // Ascending order by default
         });
-  
+
         // Update the state with sorted data in ascending order
         setLockNKeyData(sortedData);
-  
+
       } catch (error) {
         console.error("Error fetching data: ", error);
         setLoading(false);
       }
     };
-  
+
     fetchData();
-  }, []); // Empty dependency array ensures this runs only once when the component mounts  
+  }, [isLoggedIn]); // Dependency on isLoggedIn, so data is fetched only when logged in
 
   // Handle form input change
   const handleInputChange = (e) => {

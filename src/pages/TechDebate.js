@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, addDoc, updateDoc, doc } from "firebase/firestore"; // Add updateDoc and doc
-import { db, auth } from "../firebase"; // Import the initialized Firestore database
+import { db, auth } from "../firebase"; // Import Firestore and Firebase Auth
 import { FaArrowUp, FaArrowDown } from "react-icons/fa"; // Import arrow icons
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 import { onAuthStateChanged } from "firebase/auth"; // Firebase auth state change listener
@@ -64,11 +64,11 @@ const TechDebate = () => {
           id: doc.id,
           ...doc.data(),
         }));
-        
+
         // Set the fetched data
         setTechDebateData(data);
         setLoading(false);
-  
+
         // Set the initial sorting to ascending by allocatedTime
         const sortedData = data.sort((a, b) => {
           const timeA = a.allocatedTime.split(":").map(Number);
@@ -77,18 +77,18 @@ const TechDebate = () => {
           const minutesB = timeB[0] * 60 + timeB[1];
           return minutesA - minutesB; // Ascending order by default
         });
-  
+
         // Update the state with sorted data in ascending order
         setTechDebateData(sortedData);
-  
+
       } catch (error) {
         console.error("Error fetching data: ", error);
         setLoading(false);
       }
     };
-  
+
     fetchData();
-  }, []); // Empty dependency array ensures this runs only once when the component mounts  
+  }, [isLoggedIn]); // Dependency on isLoggedIn, so data is fetched only when logged in
 
   // Handle form input change
   const handleInputChange = (e) => {
