@@ -57,7 +57,7 @@ body {
   }
   
   /* Input Fields */
-  input {
+  input, select {
     padding: 10px;
     margin: 5px;
     width: 300px;
@@ -67,7 +67,7 @@ body {
   }
   
   /* Input Focus Effect */
-  input:focus {
+  input:focus, select:focus {
     border-color: #007bff;
     outline: none;
   }

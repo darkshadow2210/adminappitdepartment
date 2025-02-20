@@ -260,83 +260,89 @@ const Canvas = () => {
       {formVisible && (
         <div className="form-container">
           <form onSubmit={handleSubmit}>
-            <div>
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={formData.name}
-                onChange={handleInputChange}
-              />
-              {errors.name && <p className="error-message">{errors.name}</p>}
-            </div>
-            <div>
-              <input
-                type="text"
-                name="branch"
-                placeholder="Branch"
-                value={formData.branch}
-                onChange={handleInputChange}
-              />
-              {errors.branch && <p className="error-message">{errors.branch}</p>}
-            </div>
-            <div>
-              <input
-                type="text"
-                name="year"
-                placeholder="Year"
-                value={formData.year}
-                onChange={handleInputChange}
-              />
-              {errors.year && <p className="error-message">{errors.year}</p>}
-            </div>
-            <div>
-              <input
-                type="text"
-                name="mobile"
-                placeholder="Mobile"
-                value={formData.mobile}
-                onChange={handleInputChange}
-              />
-              {errors.mobile && <p className="error-message">{errors.mobile}</p>}
-            </div>
-            <div>
-              {/* Time picker for Allocated Time */}
-              <input
-                type="time"
-                name="allocatedTime"
-                placeholder="Allocated Time"
-                value={formData.allocatedTime}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                name="status"
-                placeholder="Status"
-                value={formData.status}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <input
-                type="number"
-                name="score"
-                placeholder="Score"
-                value={formData.score}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <button type="submit" className="submit-btn" disabled={isSubmitting}>
-                {isSubmitting ? "Submitting..." : "Submit"}
-              </button>
-              <button type="button" onClick={() => setFormVisible(false)} className="cancel-btn">
-                Cancel
-              </button>
-            </div>
-          </form>
+  <div>
+    <input
+      type="text"
+      name="name"
+      placeholder="Name"
+      value={formData.name}
+      onChange={handleInputChange}
+    />
+    {errors.name && <p className="error-message">{errors.name}</p>}
+  </div>
+  <div>
+    <input
+      type="text"
+      name="branch"
+      placeholder="Branch"
+      value={formData.branch}
+      onChange={handleInputChange}
+    />
+    {errors.branch && <p className="error-message">{errors.branch}</p>}
+  </div>
+  <div>
+    <input
+      type="text"
+      name="year"
+      placeholder="Year"
+      value={formData.year}
+      onChange={handleInputChange}
+    />
+    {errors.year && <p className="error-message">{errors.year}</p>}
+  </div>
+  <div>
+    <input
+      type="text"
+      name="mobile"
+      placeholder="Mobile"
+      value={formData.mobile}
+      onChange={handleInputChange}
+    />
+    {errors.mobile && <p className="error-message">{errors.mobile}</p>}
+  </div>
+  <div>
+    {/* Time picker for Allocated Time */}
+    <input
+      type="time"
+      name="allocatedTime"
+      placeholder="Allocated Time"
+      value={formData.allocatedTime}
+      onChange={handleInputChange}
+    />
+  </div>
+  <div>
+    {/* Status dropdown */}
+    <select
+      name="status"
+      value={formData.status}
+      onChange={handleInputChange}
+    >
+      <option value="">Select Status</option>
+      <option value="Payment Failed">Payment Failed</option>
+      <option value="Payment Initiated">Payment Initiated</option>
+      <option value="Payment Successful">Payment Successful</option>
+      <option value="Completed">Completed</option>
+      <option value="Not Attended">Not Attended</option>
+    </select>
+  </div>
+  <div>
+    <input
+      type="number"
+      name="score"
+      placeholder="Score"
+      value={formData.score}
+      onChange={handleInputChange}
+    />
+  </div>
+  <div>
+    <button type="submit" className="submit-btn" disabled={isSubmitting}>
+      {isSubmitting ? "Submitting..." : "Submit"}
+    </button>
+    <button type="button" onClick={() => setFormVisible(false)} className="cancel-btn">
+      Cancel
+    </button>
+  </div>
+</form>
         </div>
       )}
 
